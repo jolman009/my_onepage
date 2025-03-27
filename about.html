@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Name | About</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="about-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -19,6 +20,14 @@
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="about.html" class="active">About</a></li>
                 </ul>
+                <div class="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider round"></span>
+                    </label>
+                    <i class="fas fa-moon"></i>
+                </div>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -29,95 +38,373 @@
     </header>
 
     <main>
-        <section class="about-section">
+        <section class="about-hero">
             <div class="container">
-                <div class="about-container">
-                    <div class="about-info">
-                        <h1 class="about-heading">About Me</h1>
-                        <p class="about-text">
-                            Hello! I'm a passionate frontend developer with a keen eye for creating elegant, responsive websites and applications. 
-                            With over [X] years of experience in web development, I've worked on a diverse range of projects from small business websites to complex web applications.
-                        </p>
-                        <p class="about-text">
-                            My journey in coding began [your story here]. Today, I specialize in building modern, accessible, and performance-optimized web experiences 
-                            that delight users and meet business objectives.
-                        </p>
-                        <p class="about-text">
-                            When I'm not coding, you'll find me [your interests/hobbies]. I believe that these diverse interests fuel my creativity and problem-solving abilities in my professional work.
-                        </p>
-                        
-                        <h2 class="section-title">Experience</h2>
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-date">2023 - Present</div>
-                                <div class="timeline-title">Senior Frontend Developer</div>
-                                <div class="timeline-subtitle">Tech Company, Inc.</div>
-                                <p>Developed responsive web applications using React and modern CSS frameworks. Collaborated with UX/UI designers to implement intuitive user interfaces. Led a team of junior developers for several key projects.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <div class="timeline-date">2021 - 2023</div>
-                                <div class="timeline-title">Web Developer</div>
-                                <div class="timeline-subtitle">Digital Agency</div>
-                                <p>Created and maintained websites for various clients across different industries. Implemented modern frontend technologies to enhance user experience and site performance.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <div class="timeline-date">2019 - 2021</div>
-                                <div class="timeline-title">Junior Web Developer</div>
-                                <div class="timeline-subtitle">Startup Co.</div>
-                                <p>Built and optimized websites focusing on responsive design. Collaborated with the marketing team to implement SEO best practices and conversion optimization.</p>
+                <div class="about-hero-content">
+                    <h1>About Me</h1>
+                    <p class="tagline">Frontend Developer & UI/UX Enthusiast</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="about-content">
+            <div class="container">
+                <div class="about-grid">
+                    <!-- Profile Card -->
+                    <div class="profile-card grid-item">
+                        <div class="profile-image">
+                            <div class="profile-placeholder">
+                                <i class="fas fa-user-circle"></i>
                             </div>
                         </div>
-                        
-                        <h2 class="section-title">Education</h2>
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-date">2015 - 2019</div>
-                                <div class="timeline-title">Bachelor of Science in Computer Science</div>
-                                <div class="timeline-subtitle">University Name</div>
-                                <p>Focused on web development, user experience design, and software engineering principles.</p>
+                        <div class="profile-info">
+                            <h2>Your Name</h2>
+                            <p class="job-title">Frontend Developer</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            </div>
+                            <a href="#contact" class="btn btn-primary btn-block">Contact Me</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Bio Card -->
+                    <div class="bio-card grid-item">
+                        <h2 class="card-title">Biography</h2>
+                        <div class="bio-content">
+                            <p>Hello! I'm a passionate frontend developer with a keen eye for creating elegant, responsive websites and applications. With over [X] years of experience in web development, I've worked on a diverse range of projects from small business websites to complex web applications.</p>
+                            
+                            <p>My journey in coding began [your story here]. Today, I specialize in building modern, accessible, and performance-optimized web experiences that delight users and meet business objectives.</p>
+                            
+                            <p>When I'm not coding, you'll find me [your interests/hobbies]. I believe that these diverse interests fuel my creativity and problem-solving abilities in my professional work.</p>
+                            
+                            <div class="bio-expandable">
+                                <div class="expand-btn">
+                                    <span>Read More</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="expanded-content">
+                                    <p>Additional paragraphs about your approach to work, philosophy, or other interesting details about yourself. This content will be hidden initially and can be expanded by clicking the "Read More" button.</p>
+                                    
+                                    <p>You can include as much detail as you'd like here without cluttering the initial view of your page.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="about-sidebar">
-                        <div class="about-card">
-                            <h3>Contact Information</h3>
-                            <div class="contact-info">
-                                <div class="contact-item">
-                                    <i class="fas fa-envelope"></i>
-                                    <span>your.email@example.com</span>
+                    <!-- Skills Card -->
+                    <div class="skills-card grid-item">
+                        <h2 class="card-title">Skills</h2>
+                        <div class="skills-tabs">
+                            <div class="tabs-nav">
+                                <button class="tab-btn active" data-tab="frontend">Frontend</button>
+                                <button class="tab-btn" data-tab="backend">Backend</button>
+                                <button class="tab-btn" data-tab="tools">Tools</button>
+                            </div>
+                            <div class="tabs-content">
+                                <div class="tab-panel active" id="frontend-panel">
+                                    <div class="skill-bars">
+                                        <div class="skill-item">
+                                            <div class="skill-info">
+                                                <span>HTML/CSS</span>
+                                                <span>95%</span>
+                                            </div>
+                                            <div class="skill-bar">
+                                                <div class="skill-level" style="width: 95%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <div class="skill-info">
+                                                <span>JavaScript</span>
+                                                <span>90%</span>
+                                            </div>
+                                            <div class="skill-bar">
+                                                <div class="skill-level" style="width: 90%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <div class="skill-info">
+                                                <span>React</span>
+                                                <span>85%</span>
+                                            </div>
+                                            <div class="skill-bar">
+                                                <div class="skill-level" style="width: 85%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <div class="skill-info">
+                                                <span>Vue.js</span>
+                                                <span>80%</span>
+                                            </div>
+                                            <div class="skill-bar">
+                                                <div class="skill-level" style="width: 80%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="contact-item">
-                                    <i class="fas fa-phone"></i>
-                                    <span>+1 (555) 123-4567</span>
+                                <div class="tab-panel" id="backend-panel">
+                                    <div class="skill-bars">
+                                        <div class="skill-item">
+                                            <div class="skill-info">
+                                                <span>Node.js</span>
+                                                <span>80%</span>
+                                            </div>
+                                            <div class="skill-bar">
+                                                <div class="skill-level" style="width: 80%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <div class="skill-info">
+                                                <span>Express</span>
+                                                <span>75%</span>
+                                            </div>
+                                            <div class="skill-bar">
+                                                <div class="skill-level" style="width: 75%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <div class="skill-info">
+                                                <span>MongoDB</span>
+                                                <span>70%</span>
+                                            </div>
+                                            <div class="skill-bar">
+                                                <div class="skill-level" style="width: 70%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <div class="skill-info">
+                                                <span>SQL</span>
+                                                <span>65%</span>
+                                            </div>
+                                            <div class="skill-bar">
+                                                <div class="skill-level" style="width: 65%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="contact-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>City, Country</span>
+                                <div class="tab-panel" id="tools-panel">
+                                    <div class="skill-bars">
+                                        <div class="skill-item">
+                                            <div class="skill-info">
+                                                <span>Git</span>
+                                                <span>90%</span>
+                                            </div>
+                                            <div class="skill-bar">
+                                                <div class="skill-level" style="width: 90%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <div class="skill-info">
+                                                <span>Webpack</span>
+                                                <span>80%</span>
+                                            </div>
+                                            <div class="skill-bar">
+                                                <div class="skill-level" style="width: 80%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <div class="skill-info">
+                                                <span>Figma</span>
+                                                <span>75%</span>
+                                            </div>
+                                            <div class="skill-bar">
+                                                <div class="skill-level" style="width: 75%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <div class="skill-info">
+                                                <span>VS Code</span>
+                                                <span>95%</span>
+                                            </div>
+                                            <div class="skill-bar">
+                                                <div class="skill-level" style="width: 95%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="about-card">
-                            <h3>Languages</h3>
-                            <ul class="skill-list">
-                                <li>English (Native)</li>
-                                <li>Spanish (Intermediate)</li>
-                                <li>French (Basic)</li>
-                            </ul>
+                    </div>
+                    
+                    <!-- Experience Card -->
+                    <div class="experience-card grid-item">
+                        <h2 class="card-title">Experience</h2>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">2023 - Present</div>
+                                    <h3 class="timeline-title">Senior Frontend Developer</h3>
+                                    <div class="timeline-subtitle">Tech Company, Inc.</div>
+                                    <div class="timeline-details">
+                                        <p>Developed responsive web applications using React and modern CSS frameworks. Collaborated with UX/UI designers to implement intuitive user interfaces. Led a team of junior developers for several key projects.</p>
+                                        <div class="timeline-tags">
+                                            <span>React</span>
+                                            <span>CSS Grid</span>
+                                            <span>Team Leadership</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">2021 - 2023</div>
+                                    <h3 class="timeline-title">Web Developer</h3>
+                                    <div class="timeline-subtitle">Digital Agency</div>
+                                    <div class="timeline-details">
+                                        <p>Created and maintained websites for various clients across different industries. Implemented modern frontend technologies to enhance user experience and site performance.</p>
+                                        <div class="timeline-tags">
+                                            <span>JavaScript</span>
+                                            <span>WordPress</span>
+                                            <span>Performance</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">2019 - 2021</div>
+                                    <h3 class="timeline-title">Junior Web Developer</h3>
+                                    <div class="timeline-subtitle">Startup Co.</div>
+                                    <div class="timeline-details">
+                                        <p>Built and optimized websites focusing on responsive design. Collaborated with the marketing team to implement SEO best practices and conversion optimization.</p>
+                                        <div class="timeline-tags">
+                                            <span>HTML/CSS</span>
+                                            <span>Responsive Design</span>
+                                            <span>SEO</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="about-card">
-                            <h3>Interests</h3>
-                            <ul class="skill-list">
-                                <li>Photography</li>
-                                <li>Hiking</li>
-                                <li>Reading</li>
-                                <li>Travel</li>
-                                <li>Chess</li>
-                            </ul>
+                    </div>
+                    
+                    <!-- Education Card -->
+                    <div class="education-card grid-item">
+                        <h2 class="card-title">Education</h2>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">2015 - 2019</div>
+                                    <h3 class="timeline-title">Bachelor of Science in Computer Science</h3>
+                                    <div class="timeline-subtitle">University Name</div>
+                                    <div class="timeline-details">
+                                        <p>Focused on web development, user experience design, and software engineering principles.</p>
+                                        <div class="timeline-tags">
+                                            <span>Web Development</span>
+                                            <span>UX Design</span>
+                                            <span>Software Engineering</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Interests Card -->
+                    <div class="interests-card grid-item">
+                        <h2 class="card-title">Interests</h2>
+                        <div class="interests-grid">
+                            <div class="interest-item">
+                                <div class="interest-icon">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <span>Photography</span>
+                            </div>
+                            <div class="interest-item">
+                                <div class="interest-icon">
+                                    <i class="fas fa-hiking"></i>
+                                </div>
+                                <span>Hiking</span>
+                            </div>
+                            <div class="interest-item">
+                                <div class="interest-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <span>Reading</span>
+                            </div>
+                            <div class="interest-item">
+                                <div class="interest-icon">
+                                    <i class="fas fa-plane"></i>
+                                </div>
+                                <span>Travel</span>
+                            </div>
+                            <div class="interest-item">
+                                <div class="interest-icon">
+                                    <i class="fas fa-chess"></i>
+                                </div>
+                                <span>Chess</span>
+                            </div>
+                            <div class="interest-item">
+                                <div class="interest-icon">
+                                    <i class="fas fa-music"></i>
+                                </div>
+                                <span>Music</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Card -->
+                    <div class="contact-card grid-item" id="contact">
+                        <h2 class="card-title">Contact Me</h2>
+                        <div class="contact-grid">
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h3>Email</h3>
+                                        <p>your.email@example.com</p>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h3>Phone</h3>
+                                        <p>+1 (555) 123-4567</p>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h3>Location</h3>
+                                        <p>City, Country</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form-container">
+                                <form class="contact-form">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" id="name" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="subject">Subject</label>
+                                        <input type="text" id="subject" name="subject" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message">Message</label>
+                                        <textarea id="message" name="message" rows="5" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -142,5 +429,6 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="about-script.js"></script>
 </body>
 </html>
