@@ -157,4 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <h3>Message Sent!</h3>
                         <p>Thank you for your message. I'll get back to you as soon as possible.</p>
-                };
+                    `;
+                }); 
+            }
+        });
+    }       
+})
