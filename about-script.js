@@ -25,253 +25,152 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Bio Expandable Content
-    const expandBtn = document.querySelector('.expand-btn');
-    const expandedContent = document.querySelector('.expanded-content');
-    const expandIcon = expandBtn.querySelector('i');
+    // Project Filter Functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
     
-    expandBtn.addEventListener('click', function() {
-        expandedContent.classList.toggle('active');
-        
-        if (expandedContent.classList.contains('active')) {
-            expandBtn.querySelector('span').textContent = 'Read Less';
-            expandIcon.classList.remove('fa-chevron-down');
-            expandIcon.classList.add('fa-chevron-up');
-        } else {
-            expandBtn.querySelector('span').textContent = 'Read More';
-            expandIcon.classList.remove('fa-chevron-up');
-            expandIcon.classList.add('fa-chevron-down');
-        }
-    });
-    
-    // Skills Tabs
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabPanels = document.querySelectorAll('.tab-panel');
-    
-    tabButtons.forEach(button => {
+    filterButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Remove active class from all buttons and panels
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabPanels.forEach(panel => panel.classList.remove('active'));
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
             
             // Add active class to clicked button
             this.classList.add('active');
             
-            // Show the corresponding panel
-            const tabId = this.getAttribute('data-tab');
-            document.getElementById(`${tabId}-panel`).classList.add('active');
+            // Get the filter value
+            const filter = this.getAttribute('data-filter');
+            
+            // Filter projects
+            projectCards.forEach(card => {
+                card.classList.remove('filtered-in', 'filtered-out');
+                
+                // Get a small delay for the animation
+                setTimeout(() => {
+                    if (filter === 'all') {
+                        card.style.display = 'flex';
+                        card.classList.add('filtered-in');
+                    } else {
+                        // Check if card has the selected category
+                        const categories = card.getAttribute('data-categories').split(',');
+                        if (categories.includes(filter)) {
+                            card.style.display = 'flex';
+                            card.classList.add('filtered-in');
+                        } else {
+                            card.classList.add('filtered-out');
+                            // Hide after animation completes
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 400);
+                        }
+                    }
+                }, 10);
+            });
         });
     });
     
-    // Animate skill bars when they come into view
-    const skillBars = document.querySelectorAll('.skill-level');
+    // Expandable Project Details
+    const expandButtons = document.querySelectorAll('.expand-btn');
     
-    // Initialize skill bars with width 0
-    skillBars.forEach(bar => {
-        bar.style.width = '0';
-    });
-    
-    // Create Intersection Observer
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Get the target width from the style attribute
-                const targetWidth = entry.target.getAttribute('style').split('width: ')[1].split('%)')[0];
-                
-                // Set a small timeout for animation to trigger after the card animation
-                setTimeout(() => {
-                    entry.target.style.width = `${targetWidth}%`;
-                }, 300);
-                
-                // Unobserve after animation is triggered
-                observer.unobserve(entry.target);
+    expandButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const expandedContent = this.parentElement.querySelector('.project-expanded-content');
+            const icon = this.querySelector('i');
+            
+            expandedContent.classList.toggle('active');
+            
+            if (expandedContent.classList.contains('active')) {
+                this.querySelector('span').textContent = 'Hide Details';
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                this.querySelector('span').textContent = 'View Details';
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
             }
         });
-    }, { threshold: 0.1 });
-    
-    // Observe each skill bar
-    skillBars.forEach(bar => {
-        observer.observe(bar);
     });
     
-    // Contact Form Validation and Submission
-    const contactForm = document.querySelector('.contact-form');
+    // Staggered animation for project cards
+    function animateProjectCards() {
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        projectCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100 * index);
+        });
+    }
     
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Basic form validation
-            let isValid = true;
-            const formFields = contactForm.querySelectorAll('input, textarea');
-            
-            formFields.forEach(field => {
-                if (field.hasAttribute('required') && !field.value.trim()) {
-                    isValid = false;
-                    field.classList.add('error');
-                    
-                    // Add error styling
-                    field.style.borderColor = 'var(--accent-color)';
-                    
-                    // Remove error styling on input
-                    field.addEventListener('input', function() {
-                        if (field.value.trim()) {
-                            field.classList.remove('error');
-                            field.style.borderColor = 'var(--border-color)';
-                        }
-                    });
-                } else {
-                    field.classList.remove('error');
-                }
-                
-                // Email validation
-                if (field.type === 'email' && field.value) {
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(field.value)) {
-                        isValid = false;
-                        field.classList.add('error');
-                        field.style.borderColor = 'var(--accent-color)';
-                    }
-                }
-            });
-            
-            if (isValid) {
-                // Simulate form submission with loading state
-                const submitBtn = contactForm.querySelector('button[type="submit"]');
-                const originalBtnText = submitBtn.textContent;
-                
-                submitBtn.textContent = 'Sending...';
-                submitBtn.disabled = true;
-                
-                // Simulate API call with setTimeout
-                setTimeout(() => {
-                    // Replace form with success message
-                    const formContainer = contactForm.parentElement;
-                    
-                    // Create success message
-                    const successMessage = document.createElement('div');
-                    successMessage.classList.add('success-message');
-                    successMessage.innerHTML = `
-                        <div class="success-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <h3>Message Sent!</h3>
-                        <p>Thank you for your message. I'll get back to you as soon as possible.</p>
-                    `;
-                    
-                    // Style the success message
-                    successMessage.style.textAlign = 'center';
-                    successMessage.style.padding = '30px';
-                    
-                    const successIcon = successMessage.querySelector('.success-icon');
-                    successIcon.style.fontSize = '4rem';
-                    successIcon.style.color = 'var(--primary-color)';
-                    successIcon.style.marginBottom = '15px';
-                    
-                    // Replace form with success message
-                    formContainer.innerHTML = '';
-                    formContainer.appendChild(successMessage);
-                    
-                    // Add animation
-                    successMessage.animate([
-                        { opacity: 0, transform: 'translateY(20px)' },
-                        { opacity: 1, transform: 'translateY(0)' }
-                    ], {
-                        duration: 500,
-                        easing: 'ease-out',
-                        fill: 'forwards'
-                    });
-                }, 2000); // 2-second simulation
+    // Initialize the animation
+    animateProjectCards();
+    
+    // Responsive image handling
+    function checkResponsiveImages() {
+        const windowWidth = window.innerWidth;
+        const projectImgs = document.querySelectorAll('.image-placeholder');
+        
+        projectImgs.forEach(img => {
+            // Adjust height based on screen size
+            if (windowWidth <= 576) {
+                img.style.height = '180px';  // Smaller height on mobile
+            } else {
+                img.style.height = '200px';  // Default height
             }
         });
     }
     
-    // Add hover effect to grid items
-    const gridItems = document.querySelectorAll('.grid-item');
+    // Run on page load and resize
+    checkResponsiveImages();
+    window.addEventListener('resize', checkResponsiveImages);
     
-    gridItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            // Add a subtle glow effect
-            this.style.boxShadow = '0 10px 30px var(--shadow-color), 0 0 10px var(--primary-color, rgba(52, 152, 219, 0.2))';
-        });
+    // Enhance touch targets for mobile
+    function enhanceTouchTargets() {
+        const buttons = document.querySelectorAll('.btn, .filter-btn, .expand-btn');
+        const windowWidth = window.innerWidth;
         
-        item.addEventListener('mouseleave', function() {
-            // Restore original shadow
-            this.style.boxShadow = '0 5px 15px var(--shadow-color)';
-        });
-    });
-    
-    // Interactive timeline items
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    
-    timelineItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            // Make the timeline marker larger and change color
-            const marker = this.querySelector('.timeline-marker');
-            marker.style.transform = 'scale(1.3)';
-            marker.style.backgroundColor = 'var(--accent-color)';
-            
-            // Highlight the current item
-            this.style.transform = 'translateX(5px)';
-        });
-        
-        item.addEventListener('mouseleave', function() {
-            // Restore original styles
-            const marker = this.querySelector('.timeline-marker');
-            marker.style.transform = 'scale(1)';
-            marker.style.backgroundColor = 'var(--timeline-color)';
-            
-            // Remove highlight
-            this.style.transform = 'translateX(0)';
-        });
-    });
-    
-    // Interest item interactions
-    const interestItems = document.querySelectorAll('.interest-item');
-    
-    interestItems.forEach(item => {
-        item.addEventListener('click', function() {
-            // Create a pulse animation
-            const icon = this.querySelector('.interest-icon');
-            icon.animate([
-                { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(52, 152, 219, 0.4)' },
-                { transform: 'scale(1.2)', boxShadow: '0 0 0 10px rgba(52, 152, 219, 0)' }
-            ], {
-                duration: 800,
-                iterations: 1
+        if (windowWidth <= 768) {
+            buttons.forEach(button => {
+                button.style.minHeight = '44px';
+                button.style.minWidth = '44px';
+                button.style.padding = button.classList.contains('btn-small') ? '10px 15px' : '12px 20px';
             });
-        });
-    });
-    
-    // Add scroll-to-contact functionality
-    const contactLinks = document.querySelectorAll('a[href="#contact"]');
-    
-    contactLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Get the contact section
-            const contactSection = document.getElementById('contact');
-            
-            // Scroll to contact section with smooth behavior
-            contactSection.scrollIntoView({ behavior: 'smooth' });
-            
-            // Add a highlight effect
-            contactSection.style.animation = 'none';
-            setTimeout(() => {
-                contactSection.style.animation = 'highlight 1.5s ease';
-            }, 10);
-        });
-    });
-    
-    // Add highlight animation to stylesheet
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes highlight {
-            0% { background-color: var(--card-bg); }
-            30% { background-color: rgba(52, 152, 219, 0.1); }
-            100% { background-color: var(--card-bg); }
+        } else {
+            buttons.forEach(button => {
+                button.style.minHeight = '';
+                button.style.minWidth = '';
+                button.style.padding = '';
+            });
         }
-    `;
-    document.head.appendChild(style);
+    }
+    
+    // Run on page load and resize
+    enhanceTouchTargets();
+    window.addEventListener('resize', enhanceTouchTargets);
+    
+    // Lazy loading for project cards
+    function lazyLoadProjects() {
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('filtered-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, options);
+        
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            observer.observe(card);
+        });
+    }
+    
+    // Initialize lazy loading
+    lazyLoadProjects();
 });
