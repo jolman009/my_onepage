@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
 const ContactForm = () => {
+  // API endpoint - replace with your deployed backend URL
+  const API_URL = 'http://localhost:10000/api/contact';
+  
   // Form state
   const [formData, setFormData] = useState({
     name: '',
@@ -91,12 +94,14 @@ const ContactForm = () => {
     
     try {
       // Send form data to backend API
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
+        // Include credentials if using cookies/sessions
+        // credentials: 'include',
       });
       
       const data = await response.json();
@@ -130,6 +135,14 @@ const ContactForm = () => {
         message: ''
       });
       
+      // Optional: Scroll to the success message
+      setTimeout(() => {
+        window.scrollTo({
+          top: document.querySelector('.success-message')?.offsetTop - 100 || 0,
+          behavior: 'smooth'
+        });
+      }, 100);
+      
     } catch (error) {
       // Set error status
       setStatus({
@@ -138,7 +151,15 @@ const ContactForm = () => {
         success: false,
         error: error.message
       });
+      
+      // Log error for debugging
+      console.error('Contact form submission error:', error);
     }
+  };
+  
+  // Get CSS class for input fields
+  const getInputClass = (fieldName) => {
+    return `form-control ${errors[fieldName] ? 'error' : ''}`;
   };
   
   return (
@@ -170,6 +191,12 @@ const ContactForm = () => {
           </div>
           <h3>Something went wrong</h3>
           <p>{status.error || 'Failed to send your message. Please try again.'}</p>
+          <button 
+            className="btn btn-secondary" 
+            onClick={() => setStatus({ ...status, submitted: false })}
+          >
+            Try again
+          </button>
         </div>
       )}
       
@@ -184,11 +211,15 @@ const ContactForm = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className={errors.name ? 'error' : ''}
+              className={getInputClass('name')}
               placeholder="Your Name"
               disabled={status.submitting}
+              aria-invalid={errors.name ? 'true' : 'false'}
+              aria-describedby={errors.name ? 'name-error' : undefined}
             />
-            {errors.name && <div className="error-text">{errors.name}</div>}
+            {errors.name && (
+              <div className="error-text" id="name-error">{errors.name}</div>
+            )}
           </div>
           
           <div className="form-group">
@@ -199,11 +230,15 @@ const ContactForm = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={errors.email ? 'error' : ''}
+              className={getInputClass('email')}
               placeholder="Your Email"
               disabled={status.submitting}
+              aria-invalid={errors.email ? 'true' : 'false'}
+              aria-describedby={errors.email ? 'email-error' : undefined}
             />
-            {errors.email && <div className="error-text">{errors.email}</div>}
+            {errors.email && (
+              <div className="error-text" id="email-error">{errors.email}</div>
+            )}
           </div>
           
           <div className="form-group">
@@ -214,11 +249,15 @@ const ContactForm = () => {
               name="subject"
               value={formData.subject}
               onChange={handleChange}
-              className={errors.subject ? 'error' : ''}
+              className={getInputClass('subject')}
               placeholder="Subject"
               disabled={status.submitting}
+              aria-invalid={errors.subject ? 'true' : 'false'}
+              aria-describedby={errors.subject ? 'subject-error' : undefined}
             />
-            {errors.subject && <div className="error-text">{errors.subject}</div>}
+            {errors.subject && (
+              <div className="error-text" id="subject-error">{errors.subject}</div>
+            )}
           </div>
           
           <div className="form-group">
@@ -228,12 +267,16 @@ const ContactForm = () => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className={errors.message ? 'error' : ''}
+              className={getInputClass('message')}
               placeholder="Your Message"
               rows="5"
               disabled={status.submitting}
+              aria-invalid={errors.message ? 'true' : 'false'}
+              aria-describedby={errors.message ? 'message-error' : undefined}
             ></textarea>
-            {errors.message && <div className="error-text">{errors.message}</div>}
+            {errors.message && (
+              <div className="error-text" id="message-error">{errors.message}</div>
+            )}
           </div>
           
           <button 
