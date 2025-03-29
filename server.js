@@ -22,6 +22,12 @@ app.use(cors({
 }));
 
 // Routes
+app.get('/', (req, res) => {
+  res.status(200).json({ 
+    success: true, 
+    message: 'Welcome to the Contact API!' 
+  });
+});
 app.use('/api/contact', contactRoutes);
 
 // Global error handler
@@ -32,6 +38,7 @@ app.use((err, req, res, next) => {
     message: 'An error occurred on the server.' 
   });
 });
+
 
 // Start server
 async function startServer() {
